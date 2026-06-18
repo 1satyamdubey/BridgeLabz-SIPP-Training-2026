@@ -1,62 +1,47 @@
-
-public class MathWizard {
-    public static boolean isPrime(int n) {
-        if (n <= 1) return false;
+class MathWizard {
+    static boolean isPrime(int n) {
+        if (n < 2) return false;
         if (n == 2) return true;
         if (n % 2 == 0) return false;
         for (int i = 3; i * i <= n; i += 2) if (n % i == 0) return false;
         return true;
     }
-
-    public static long factorial(int n) {
-        if (n < 0) throw new IllegalArgumentException("Negative number");
+    static long factorial(int n) {
+        if (n < 0) throw new IllegalArgumentException("n must be >= 0");
         long result = 1;
         for (int i = 2; i <= n; i++) result *= i;
         return result;
     }
-
-    public static long fibonacci(int n) {
-        if (n < 0) throw new IllegalArgumentException("Negative index");
+    static long fibonacci(int n) {
+        if (n < 0) throw new IllegalArgumentException("n must be >= 0");
         if (n <= 1) return n;
-        long prev = 0, curr = 1;
-        for (int i = 2; i <= n; i++) {
-            long next = prev + curr;
-            prev = curr;
-            curr = next;
-        }
-        return curr;
+        long a = 0, b = 1;
+        for (int i = 2; i <= n; i++) { long temp = b; b = a + b; a = temp; }
+        return b;
     }
-
-    public static int gcd(int a, int b) {
-        a = Math.abs(a);
-        b = Math.abs(b);
-        while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return a;
+    
+    static int gcd(int a, int b) {
+        while (b != 0) { int temp = b; b = a % b; a = temp; }
+        return Math.abs(a);
     }
-
-    public static int lcm(int a, int b) {
-        if (a == 0 || b == 0) return 0;
-        return Math.abs(a * b) / gcd(a, b);
+    
+    static long lcm(int a, int b) {
+        return Math.abs((long) a * b) / gcd(a, b);
     }
-
-    public static double power(double base, int exp) {
-        if (exp == 0) return 1.0;
-        if (exp < 0) return 1.0 / power(base, -exp);
+    
+    static double power(double base, int exp) {
         double result = 1;
+        if (exp < 0) { base = 1 / base; exp = -exp; }
         for (int i = 0; i < exp; i++) result *= base;
         return result;
     }
-
+    
     public static void main(String[] args) {
-        System.out.println("isPrime(7): " + isPrime(7) + ", isPrime(10): " + isPrime(10));
-        System.out.println("factorial(5): " + factorial(5) + ", factorial(0): " + factorial(0));
-        System.out.println("fibonacci(10): " + fibonacci(10) + ", fibonacci(5): " + fibonacci(5));
-        System.out.println("gcd(12,8): " + gcd(12, 8) + ", gcd(48,18): " + gcd(48, 18));
-        System.out.println("lcm(12,8): " + lcm(12, 8) + ", lcm(4,6): " + lcm(4, 6));
-        System.out.println("power(2,5): " + power(2, 5) + ", power(5,3): " + power(5, 3) + ", power(2,-2): " + power(2, -2));
+        System.out.println("isPrime(17): " + isPrime(17));
+        System.out.println("factorial(5): " + factorial(5));
+        System.out.println("fibonacci(10): " + fibonacci(10));
+        System.out.println("gcd(48,18): " + gcd(48, 18));
+        System.out.println("lcm(12,18): " + lcm(12, 18));
+        System.out.println("power(2,8): " + power(2, 8));
     }
 }
