@@ -1,5 +1,5 @@
 // Base Class: Package
-class Package {
+public class Package {
     // Encapsulation: Private attributes to hide them from direct external modification
     private final String trackingId; // final ensures read-only after initialization
     private double weight;
@@ -34,6 +34,22 @@ class Package {
             this.weight = weight;
         }
     }
+
+    public static void main(String[] args) {
+        System.out.println("--- Scenario A: Valid Input ---");
+        ExpressPackage validPkg = new ExpressPackage("101", 2.5, "Critical");
+        validPkg.printShippingLabel();
+
+        System.out.println("\n--- Scenario B: Invalid Input Handling ---");
+        System.out.println("Attempting to change weight to -1.5...");
+        validPkg.setWeight(-1.5);
+
+        System.out.println("\nAttempting to change weight to 0.0...");
+        validPkg.setWeight(0.0);
+
+        System.out.println("\nPrinting label again to verify weight remained unchanged:");
+        validPkg.printShippingLabel();
+    }
 }
 
 // Subclass: ExpressPackage
@@ -58,25 +74,6 @@ class ExpressPackage extends Package {
         System.out.println("Weight        : " + getWeight() + " kg");
         System.out.println("Priority Level: " + getPriorityLevel());
         System.out.println("==================================");
-    }
-}
-
-// Main class to demonstrate scenarios
-class Main {
-    public static void main(String[] args) {
-        System.out.println("--- Scenario A: Valid Input ---");
-        ExpressPackage validPkg = new ExpressPackage("101", 2.5, "Critical");
-        validPkg.printShippingLabel();
-
-        System.out.println("\n--- Scenario B: Invalid Input Handling ---");
-        System.out.println("Attempting to change weight to -1.5...");
-        validPkg.setWeight(-1.5);
-
-        System.out.println("\nAttempting to change weight to 0.0...");
-        validPkg.setWeight(0.0);
-
-        System.out.println("\nPrinting label again to verify weight remained unchanged:");
-        validPkg.printShippingLabel();
     }
 }
 
