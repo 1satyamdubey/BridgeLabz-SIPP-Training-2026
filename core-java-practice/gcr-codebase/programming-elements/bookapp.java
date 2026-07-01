@@ -72,66 +72,55 @@ public class bookapp {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int choice;
+        try (Scanner scanner = new Scanner(System.in)) {
+            int choice;
 
-        do {
-            System.out.println("\n===== Address Book Menu =====");
-            System.out.println("1. Add Contact");
-            System.out.println("2. Search by First Name");
-            System.out.println("3. Delete Contact by Phone");
-            System.out.println("4. Display Contacts Sorted by Name");
-            System.out.println("5. Exit");
-            System.out.print("Enter your choice: ");
+            do {
+                System.out.println("\n===== Address Book Menu =====");
+                System.out.println("1. Add Contact");
+                System.out.println("2. Search by First Name");
+                System.out.println("3. Delete Contact by Phone");
+                System.out.println("4. Display Contacts Sorted by Name");
+                System.out.println("5. Exit");
+                System.out.print("Enter your choice: ");
 
-            choice = scanner.nextInt();
-            scanner.nextLine();
+                choice = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter name: ");
-                    String name = scanner.nextLine();
-                    System.out.print("Enter phone: ");
-                    String phone = scanner.nextLine();
-                    System.out.print("Enter email: ");
-                    String email = scanner.nextLine();
-                    addContact(name, phone, email);
-                    break;
-
-                case 2:
-                    System.out.print("Enter first name to search: ");
-                    String firstName = scanner.nextLine();
-                    Contact found = searchByFirstName(firstName);
-                    if (found != null) {
-                        System.out.println("Contact found: Name: " + found.name + ", Phone: " + found.phone + ", Email: " + found.email);
-                    } else {
-                        System.out.println("No contact found for first name: " + firstName);
+                switch (choice) {
+                    case 1 -> {
+                        System.out.print("Enter name: ");
+                        String name = scanner.nextLine();
+                        System.out.print("Enter phone: ");
+                        String phone = scanner.nextLine();
+                        System.out.print("Enter email: ");
+                        String email = scanner.nextLine();
+                        addContact(name, phone, email);
                     }
-                    break;
-
-                case 3:
-                    System.out.print("Enter phone number to delete: ");
-                    String phoneToDelete = scanner.nextLine();
-                    if (deleteContact(phoneToDelete)) {
-                        System.out.println("Contact deleted successfully.");
-                    } else {
-                        System.out.println("No contact found with phone: " + phoneToDelete);
+                    case 2 -> {
+                        System.out.print("Enter first name to search: ");
+                        String firstName = scanner.nextLine();
+                        Contact found = searchByFirstName(firstName);
+                        if (found != null) {
+                            System.out.println("Contact found: Name: " + found.name + ", Phone: " + found.phone + ", Email: " + found.email);
+                        } else {
+                            System.out.println("No contact found for first name: " + firstName);
+                        }
                     }
-                    break;
-
-                case 4:
-                    displaySortedByName();
-                    break;
-
-                case 5:
-                    System.out.println("Exiting Address Book. Goodbye!");
-                    break;
-
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        } while (choice != 5);
-
-        scanner.close();
+                    case 3 -> {
+                        System.out.print("Enter phone number to delete: ");
+                        String phoneToDelete = scanner.nextLine();
+                        if (deleteContact(phoneToDelete)) {
+                            System.out.println("Contact deleted successfully.");
+                        } else {
+                            System.out.println("No contact found with phone: " + phoneToDelete);
+                        }
+                    }
+                    case 4 -> displaySortedByName();
+                    case 5 -> System.out.println("Exiting Address Book. Goodbye!");
+                    default -> System.out.println("Invalid choice. Please try again.");
+                }
+            } while (choice != 5);
+        }
     }
 }
